@@ -132,7 +132,16 @@ cfg_if! {
         pub use crate::xous::*;
 
         prelude!();
-    } else {
+    } else if #[cfg(target_os = "tinyos")] {
+        mod primitives;
+        pub use crate::primitives::*;
+
+        mod tinyos;
+        pub use crate::tinyos::*;
+
+        prelude!();
+    }
+    else {
         // non-supported targets: empty...
     }
 }
